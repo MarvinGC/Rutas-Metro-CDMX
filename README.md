@@ -1,2 +1,2 @@
 # Rutas-del-Metro
-Buscador de la mejor ruta del metro
+Buscador de la ruta mas rapida del metro
