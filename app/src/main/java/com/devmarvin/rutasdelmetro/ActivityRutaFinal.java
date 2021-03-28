@@ -23,9 +23,16 @@ public class ActivityRutaFinal extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private EstacionAdapter mEstacionAdapter;
 
-    public static Intent newIntent(Context context, int[] selector) {
+    public static Intent newIntent(Context context, int[] inicio_final) {
+        /*
+        inicio_final -> Contiene el indice de inicio y final de la busqueda
+        donde
+         0 es el inicio
+         1 es el final
+         */
+
         Intent intent = new Intent(context, ActivityRutaFinal.class);
-        intent.putExtra(EXTRA_INI_FIN,selector);
+        intent.putExtra(EXTRA_INI_FIN,inicio_final);
         return intent;
     }
     @Override
@@ -34,8 +41,9 @@ public class ActivityRutaFinal extends AppCompatActivity {
         setContentView(R.layout.activity_ruta_final);
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
         int[] ini_fin = getIntent().getIntArrayExtra(EXTRA_INI_FIN);
-        Log.d("ARF","Estaciones ->"+ini_fin[0]+" "+ini_fin[1]);
+        Log.d("RutaFinal","Estaciones ->"+ini_fin[0]+" "+ini_fin[1]);
         mEstaciones = new Busqueda(ini_fin[0],ini_fin[1], getApplicationContext()).BFS();
         UpdateUI();
     }
@@ -84,8 +92,8 @@ public class ActivityRutaFinal extends AppCompatActivity {
         public void bind(Estacion e) {
             mEstacion = e;
             nombreEstacion.setText(mEstacion.getNombre());
-            //nombreLinea.setText(mEstacion.getLinea().getNombre());
-            //colorLinea.setText(mEstacion.getLinea().getColor());
+            nombreLinea.setText(mEstacion.getLinea().getNombre());
+            colorLinea.setText(mEstacion.getLinea().getColor());
         }
     }
 }

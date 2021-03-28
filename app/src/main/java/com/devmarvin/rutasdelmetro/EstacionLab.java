@@ -25,7 +25,7 @@ public class EstacionLab {
 
     public static EstacionLab get(Context context){
             if(sEstacionLab == null){
-                Log.d("lab","sEstacionLab es null");
+                Log.d("EstacionLab","sEstacionLab es null");
                 return new EstacionLab(context);
             }
             else {
@@ -76,21 +76,14 @@ public class EstacionLab {
         }
     }
     private List<Estacion> getTransbordes(Estacion estacion) {
-        /*
+         /*
         //Transbordes
-        SELECT * FROM estacion WHERE estacion = "Pantitlán";
-        linea;
+        SELECT * FROM estacion NATURAL JOIN linea WHERE estacion = "estacion;
          */
-        String[] nombre = {estacion.getNombre()};
+        String consulta = "SELECT * FROM estacion NATURAL JOIN linea WHERE estacion =\""+estacion.getNombre()+"\";";
         List<Estacion> transbordes = new ArrayList<>();
-        Cursor cursor = metro.query(
-                MetroDbEsquema.TablaEstacion.Nombre,
-                null, // columns - null selects all columns
-                MetroDbEsquema.TablaEstacion.Cols.estacion+ "=?", //Where Clause
-                nombre,// Where Args
-                null, // grupBY
-                null, // having
-                null // orderBy
+        Cursor cursor = metro.rawQuery(
+                consulta,null
         );
         try{
             cursor.moveToFirst();
@@ -116,14 +109,14 @@ public class EstacionLab {
                 " WHERE ( id_estacion = " + index + " - 1 " +
                 " OR id_estacion = " + index + " + 1 )" +
                 " AND id_linea = "+ linea +";";
-        List<Integer> transbordes = new ArrayList<>();
+        List<Integer> estaciones = new ArrayList<>();
         Cursor cursor = metro.rawQuery(
                 consulta,null
         );
         try{
             cursor.moveToFirst();
             while(!cursor.isAfterLast()){
-                transbordes.add(cursor.getInt(cursor.getColumnIndex(
+                estaciones.add(cursor.getInt(cursor.getColumnIndex(
                         MetroDbEsquema.TablaEstacion.Cols.id_estacion
                 ))/* index - 1 para ajustar con el arreglo */ -1);
                 cursor.moveToNext();
@@ -132,7 +125,7 @@ public class EstacionLab {
         finally {
             cursor.close();
         }
-        return transbordes;
+        return estaciones;
     }
     public List<Integer> getAristas(Estacion estacion){
         List<Integer> aristas = new LinkedList<>();
@@ -150,34 +143,12 @@ public class EstacionLab {
     }
     private List<Estacion> getEstaciones() {
 
-        /*
-        SELECT * FROM estacion NATURAL JOIN linea;
+        // SELECT * FROM estacion NATURAL JOIN linea;
 
         String consulta = "SELECT * FROM estacion NATURAL JOIN linea;";
         List<Estacion> estaciones = new ArrayList<>();
         Cursor cursor = metro.rawQuery(
                 consulta,null
-        );
-        try{
-            cursor.moveToFirst();
-            while(!cursor.isAfterLast()){
-                estaciones.add(getEstacion(cursor));
-                cursor.moveToNext();
-            }
-        }
-        finally {
-            cursor.close();
-        }
-        */
-        List<Estacion> estaciones = new ArrayList<>();
-        Cursor cursor = metro.query(
-                MetroDbEsquema.TablaEstacion.Nombre,
-                null, // columns - null selects all columns
-                null, //Where Clause
-                null,// Where Args
-                null, // grupBY
-                null, // having
-                null // orderBy
         );
         try{
             cursor.moveToFirst();
@@ -195,7 +166,7 @@ public class EstacionLab {
     private Estacion getEstacion(Cursor cursor){
         Estacion estacion = new Estacion(cursor.getInt(cursor.getColumnIndex(
                 MetroDbEsquema.TablaEstacion.Cols.id_estacion
-        ))/* index - 1 para ajustar con el arreglo */ -1 );
+        ))/* index - 1 para ajustar con el arreglo */  -1 );
         estacion.setNombre(
                 cursor.getString(cursor.getColumnIndex(
                  MetroDbEsquema.TablaEstacion.Cols.estacion))
@@ -203,7 +174,7 @@ public class EstacionLab {
         estacion.setId_linea(
                 cursor.getInt(cursor.getColumnIndex(
                         MetroDbEsquema.TablaEstacion.Cols.id_linea))
-        );/*
+        );
         estacion.setLinea(
                 new Linea(
                     cursor.getInt(cursor.getColumnIndex(
@@ -214,7 +185,6 @@ public class EstacionLab {
                             MetroDbEsquema.TablaLinea.Cols.color))
                 )
         );
-        */
         return estacion;
     }
     public Estacion getEstacion(int index){

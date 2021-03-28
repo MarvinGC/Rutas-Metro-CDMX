@@ -94,6 +94,8 @@ public class ActivityBuscar extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(),ActivityComoLlegar.class);
             startActivity(intent);
         }
+        //Asigna la estacion segun la estacion que haya elegio del la
+        //actividad previa
         private void setCampo(int selector, int index) {
             if(selector == 0){
                 EstacionLab tem = EstacionLab.get(getApplicationContext());
@@ -108,8 +110,8 @@ public class ActivityBuscar extends AppCompatActivity {
         public void bind(Estacion e) {
             mEstacion = e;
             nombreEstacion.setText(mEstacion.getNombre());
-            //nombreLinea.setText(mEstacion.getLinea().getNombre());
-            //colorLinea.setText(mEstacion.getLinea().getColor());
+            nombreLinea.setText(mEstacion.getLinea().getNombre());
+            colorLinea.setText(mEstacion.getLinea().getColor());
         }
     }
 }

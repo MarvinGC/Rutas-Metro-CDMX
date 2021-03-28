@@ -30,33 +30,37 @@ public class EstacionHelper extends SQLiteOpenHelper {
     public void createDatabase() throws IOException
     {
         boolean dbExist = checkDataBase();
-        if(dbExist)
-        {
-            Log.v("Base de Datos:", "Base de Datos ya existe");
-            String myPath = RUTA_BASE + NOMBRE_BASE;
-            File dbfile = new File(myPath);
-            dbfile.delete();
+        if(dbExist) {
+            Log.d("Base de Datos:", "Base de Datos YA existe");
             // By calling this method here onUpgrade will be called on a
             // writeable database, but only if the version number has been
             // bumped
             //onUpgrade(myDataBase, DATABASE_VERSION_old, DATABASE_VERSION);
+            /*Provicional mientras no implemento onUpgrade
+            String myPath = RUTA_BASE + NOMBRE_BASE;
+            File dbfile = new File(myPath);
+            dbfile.delete();
+            copyFromAssets();
+             */
         }
-
-        boolean dbExist1 = checkDataBase();
-        if(!dbExist1)
+        else
         {
-            this.getReadableDatabase();
-            try
-            {
-                this.close();
-                copyDataBase();
-            }
-            catch (IOException e)
-            {
-                throw new Error("Error copying database");
-            }
+            Log.d("Base de Datos:", "Base de Datos NO existe");
+            copyFromAssets();
         }
-
+    }
+    private void copyFromAssets() throws IOException
+    {
+        this.getReadableDatabase();
+        try
+        {
+            this.close();
+            copyDataBase();
+        }
+        catch (IOException e)
+        {
+            throw new Error("Error copying database");
+        }
     }
     //Check database already exist or not
     private boolean checkDataBase()
@@ -67,11 +71,12 @@ public class EstacionHelper extends SQLiteOpenHelper {
             String myPath = RUTA_BASE + NOMBRE_BASE;
             File dbfile = new File(myPath);
             checkDB = dbfile.exists();
+            return checkDB;
         }
         catch(SQLiteException e)
         {
+            throw e;
         }
-        return checkDB;
     }
     //Copia la base de datos de assets a una nueva base de datos en el sistema android
     private void copyDataBase() throws IOException
