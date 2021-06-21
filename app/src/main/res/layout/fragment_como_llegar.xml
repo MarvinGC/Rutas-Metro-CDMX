@@ -46,14 +46,15 @@
             android:layout_marginLeft="20dp"
             >
             <TextView
-                android:id="@+id/text_es_partida"
+                android:id="@+id/text_estacion_partida"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:text="@string/estacion_inicial"
                 android:textStyle="bold"
                 />
             <TextView
-                android:id="@+id/text_es_linea_partida"
+                android:id="@+id/text_linea_partida"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
@@ -85,7 +86,7 @@
             android:layout_marginLeft="20dp"
             >
             <TextView
-                android:id="@+id/text_es_destino"
+                android:id="@+id/text_estacion_destino"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
@@ -93,7 +94,7 @@
                 android:textStyle="bold"
                 />
             <TextView
-                android:id="@+id/text_es_linea_destino"
+                android:id="@+id/text_linea_destino"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"

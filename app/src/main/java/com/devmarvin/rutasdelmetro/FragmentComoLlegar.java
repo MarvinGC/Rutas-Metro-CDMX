@@ -2,7 +2,6 @@ package com.devmarvin.rutasdelmetro;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +13,12 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 public class FragmentComoLlegar extends Fragment {
-    private LinearLayout estacionInicial;
+    private LinearLayout estacionPartida;
     private LinearLayout estacionFinal;
-    private TextView textEsInicial;
-    private TextView textEsDestino;
+    private TextView textEstacionPartida;
+    private TextView textEstacionDestino;
+    private TextView textLineaPartida;
+    private TextView textLineaDestino;
     private Button botonBusqueda;
     private Estacion partida;
     private Estacion destino;
@@ -33,8 +34,8 @@ public class FragmentComoLlegar extends Fragment {
         View view = inflater.inflate(R.layout.fragment_como_llegar,container,false);
         setEstaciones(view);
         cargar = new CargandoDialog(this.getActivity());
-        estacionInicial = view.findViewById(R.id.estacion_inicial);
-        estacionInicial.setOnClickListener(new View.OnClickListener() {
+        estacionPartida = view.findViewById(R.id.estacion_inicial);
+        estacionPartida.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = ActivityBuscar.newIntent(getActivity(), 0);
@@ -77,12 +78,16 @@ public class FragmentComoLlegar extends Fragment {
         partida = EstacionLab.get(getActivity()).getPrimera();
         destino = EstacionLab.get(getActivity()).getSegunda();
         if(partida != null) {
-            textEsInicial = view.findViewById(R.id.text_es_partida);
-            textEsInicial.setText(partida.getNombre());
+            textEstacionPartida = view.findViewById(R.id.text_estacion_partida);
+            textLineaPartida = view.findViewById(R.id.text_linea_partida);
+            textEstacionPartida.setText(partida.getNombre());
+            textLineaPartida.setText(partida.getLinea().getNombre());
         }
         if(destino != null) {
-            textEsDestino = view.findViewById(R.id.text_es_destino);
-            textEsDestino.setText(destino.getNombre());
+            textEstacionDestino = view.findViewById(R.id.text_estacion_destino);
+            textLineaDestino = view.findViewById(R.id.text_linea_destino);
+            textEstacionDestino.setText(destino.getNombre());
+            textLineaDestino.setText(destino.getLinea().getNombre());
         }
     }
 }

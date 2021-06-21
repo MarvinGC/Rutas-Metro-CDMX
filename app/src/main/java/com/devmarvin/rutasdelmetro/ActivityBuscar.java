@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -30,6 +32,12 @@ public class ActivityBuscar extends AppCompatActivity {
         Intent intent = new Intent(context, ActivityBuscar.class);
         intent.putExtra(EXTRA_SELECTOR,selector);
         return intent;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_busqueda,menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

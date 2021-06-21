@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">RutasdelMetro</string>
+    <string name="app_name">Rutas del Metro</string>
     <string name="titulo">Buscar la ruta con menos estaciones</string>
     <string name="estacion_inicial">Elige un punto de partida</string>
     <string name="estacion_final">Elige un punto de destino</string>
     <string name="loading_text">Cargando...</string>
-    <string name="buscar_label">Buscar</string>
+    <string name="buscar_label">Buscar Estacion</string>
     <string name="resultado_label">Ruta Obtenida</string>
 </resources>
