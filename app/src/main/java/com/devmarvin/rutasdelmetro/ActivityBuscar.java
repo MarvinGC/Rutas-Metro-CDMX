@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -47,7 +46,7 @@ public class ActivityBuscar extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.estacion_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
-        mEstaciones = EstacionLab.get(getApplicationContext()).getMetro_list();
+        mEstaciones = EstacionLab.get(getApplicationContext()).getEstacionesMetro();
 
         estacion = getIntent().getIntExtra(EXTRA_SELECTOR,-1);
 
@@ -102,16 +101,13 @@ public class ActivityBuscar extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(),ActivityComoLlegar.class);
             startActivity(intent);
         }
-        //Asigna la estacion segun la estacion que haya elegio del la
-        //actividad previa
+        // Asigna la estacion segun la estacion que haya elegio en la actividad como llegar
         private void setCampo(int selector, int index) {
             if(selector == 0){
-                EstacionLab tem = EstacionLab.get(getApplicationContext());
-                tem.setPrimera(tem.getEstacion(index));
+                EstacionLab.get(getApplicationContext()).setPrimera(index);
             }
             if(selector == 1){
-                EstacionLab tem = EstacionLab.get(getApplicationContext());
-                tem.setSegunda(tem.getEstacion(index));
+                EstacionLab.get(getApplicationContext()).setSegunda(index);
             }
         }
 

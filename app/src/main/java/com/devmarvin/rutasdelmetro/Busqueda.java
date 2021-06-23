@@ -20,7 +20,7 @@ public class Busqueda {
         this.ini = ini;
         this.fin = fin;
         this.context = context;
-        metro = EstacionLab.get(context).getMetro_list();
+        metro = EstacionLab.get(context).getEstacionesMetro();
     }
     public List<Estacion> BFS(){
         setNoVistos();

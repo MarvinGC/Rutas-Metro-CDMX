@@ -31,7 +31,7 @@ public class EstacionHelper extends SQLiteOpenHelper {
     {
         boolean dbExist = checkDataBase();
         if(dbExist) {
-            Log.d("Base de Datos:", "Base de Datos YA existe");
+            Log.d("DBmetro", "Base de Datos YA existe");
             // By calling this method here onUpgrade will be called on a
             // writeable database, but only if the version number has been
             // bumped
@@ -45,7 +45,7 @@ public class EstacionHelper extends SQLiteOpenHelper {
         }
         else
         {
-            Log.d("Base de Datos:", "Base de Datos NO existe");
+            Log.d("DBmetro", "Base de Datos NO existe");
             copyFromAssets();
         }
     }
@@ -112,7 +112,7 @@ public class EstacionHelper extends SQLiteOpenHelper {
             Log.i("Base de Datos:","Base de datos eliminada");
         }
     }
-    //abre la base de datos
+    //Abre la base de datos
     public void openDatabase() throws SQLException
     {
         String ruta = RUTA_BASE + NOMBRE_BASE;

@@ -1,6 +1,5 @@
 package com.devmarvin.rutasdelmetro;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,16 +22,16 @@ public class ActivityRutaFinal extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private EstacionAdapter mEstacionAdapter;
 
-    public static Intent newIntent(Context context, int[] inicio_final) {
+    public static Intent newIntent(Context context, int[] inicialFinal) {
         /*
-        inicio_final -> Contiene el indice de inicio y final de la busqueda
-        donde
-         0 es el inicio
-         1 es el final
-         */
+            inicialFinal -> Contiene el indice de inicio y final de la busqueda
+            Donde:
+            0 es la estacion inicial
+            1 es la estacion final
+       */
 
         Intent intent = new Intent(context, ActivityRutaFinal.class);
-        intent.putExtra(EXTRA_INI_FIN,inicio_final);
+        intent.putExtra(EXTRA_INI_FIN,inicialFinal);
         return intent;
     }
     @Override
@@ -42,9 +41,12 @@ public class ActivityRutaFinal extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
-        int[] ini_fin = getIntent().getIntArrayExtra(EXTRA_INI_FIN);
-        Log.d("RutaFinal","Estaciones ->"+ini_fin[0]+" "+ini_fin[1]);
-        mEstaciones = new Busqueda(ini_fin[0],ini_fin[1], getApplicationContext()).BFS();
+        int[] incialFinal = getIntent().getIntArrayExtra(EXTRA_INI_FIN);
+        Log.d("RutaFinal",
+                   "Estacion inicial "+ incialFinal[0]+
+                        " estacion final "  + incialFinal[1]);
+        // Se ejecuta el Algoritmo Breadth First Search
+        mEstaciones = new Busqueda(incialFinal[0], incialFinal[1], getApplicationContext()).BFS();
         UpdateUI();
     }
     private void UpdateUI() {

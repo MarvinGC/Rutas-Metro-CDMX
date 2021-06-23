@@ -1,13 +1,8 @@
 package com.devmarvin.rutasdelmetro;
 
-import android.widget.TextView;
-
-import java.util.List;
-import java.util.UUID;
-
 public class Estacion {
     private String nombre;
-    private int id_linea;
+    private int lineaId;
     private boolean visitado;
     //private UUID id;
     private int anterior;
@@ -32,12 +27,12 @@ public class Estacion {
     }
 
 
-    public int getId_linea() {
-        return id_linea;
+    public int getLineaId() {
+        return lineaId;
     }
 
-    public void setId_linea(int id_linea) {
-        this.id_linea = id_linea;
+    public void setLineaId(int lineaId) {
+        this.lineaId = lineaId;
     }
 
     public boolean isVisitado() {
