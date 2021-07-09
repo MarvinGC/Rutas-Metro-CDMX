@@ -83,12 +83,14 @@ public class EstacionLab {
          /*
         Si la estacion tiene transbordes, regresa con que lineas inersecta la estacion
 
-        SELECT * FROM estaciones NATURAL JOIN lineas WHERE estacion = "estacion";
+        SELECT * FROM estaciones JOIN lineas ON linea_id = id_linea WHERE estacion = "estacion";
 
          */
         String consulta =  " SELECT * FROM "+
                              MetroDbEsquema.TablaEstacion.Nombre +
-                           " NATURAL JOIN "+ MetroDbEsquema.TablaLinea.Nombre +
+                           " JOIN "+ MetroDbEsquema.TablaLinea.Nombre + " ON "+
+                            MetroDbEsquema.TablaEstacion.Cols.lineaId +" = " +
+                            MetroDbEsquema.TablaLinea.Cols.idLinea +
                            " WHERE "+ MetroDbEsquema.TablaEstacion.Cols.nombreEstacion +
                            " =\"" + estacion.getNombre() + "\";";
         List<Estacion> transbordes = new ArrayList<>();
@@ -158,10 +160,15 @@ public class EstacionLab {
     }
     private List<Estacion> getEstaciones() {
 
-        // SELECT * FROM estaciones NATURAL JOIN lineas;
+        /*
+        --- Todas las estaciones mas los atributos de la linea
+          SELECT * FROM estaciones JOIN lineas ON linea_id = id_linea;
+         */
         String consulta =  "SELECT * FROM " +
                             MetroDbEsquema.TablaEstacion.Nombre +
-                            " NATURAL JOIN " + MetroDbEsquema.TablaLinea.Nombre + ";";
+                            " JOIN " + MetroDbEsquema.TablaLinea.Nombre + " ON " +
+                            MetroDbEsquema.TablaEstacion.Cols.lineaId + " = " +
+                            MetroDbEsquema.TablaLinea.Cols.idLinea;
         List<Estacion> estaciones = new ArrayList<>();
         Cursor cursor = metro.rawQuery(
                 consulta,null
@@ -190,6 +197,11 @@ public class EstacionLab {
         estacion.setLineaId(
                 cursor.getInt(cursor.getColumnIndex(
                         MetroDbEsquema.TablaEstacion.Cols.lineaId))
+        );
+        estacion.setRutaLogo(
+                cursor.getString(cursor.getColumnIndex(
+                        MetroDbEsquema.TablaEstacion.Cols.rutaLogo
+                ))
         );
         estacion.setLinea(
                 new Linea(

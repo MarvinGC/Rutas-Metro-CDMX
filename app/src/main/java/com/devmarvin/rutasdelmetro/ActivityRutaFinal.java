@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -80,6 +81,7 @@ public class ActivityRutaFinal extends AppCompatActivity {
     }
     public class EstacionHolder extends RecyclerView.ViewHolder {
         private Estacion mEstacion;
+        private ImageView iconoEstacion;
         private TextView nombreEstacion;
         private TextView nombreLinea;
         private TextView colorLinea;
@@ -87,15 +89,24 @@ public class ActivityRutaFinal extends AppCompatActivity {
         public EstacionHolder(View itemView) {
             super(itemView);
             nombreEstacion = itemView.findViewById(R.id.nombre_estacion);
+            iconoEstacion = itemView.findViewById(R.id.icono_estacion);
             nombreLinea = itemView.findViewById(R.id.nombre_linea);
             colorLinea = itemView.findViewById(R.id.color_linea);
         }
 
         public void bind(Estacion e) {
             mEstacion = e;
+            iconoEstacion.setImageResource(getImageMipmap("ic_balbuena",getApplicationContext()));
             nombreEstacion.setText(mEstacion.getNombre());
             nombreLinea.setText(mEstacion.getLinea().getNombre());
             colorLinea.setText(mEstacion.getLinea().getColor());
+        }
+        public int getImageMipmap(String imageName, Context context) {
+
+            int drawableResourceId = context.getResources().
+                    getIdentifier(imageName, "mipmap", context.getPackageName());
+
+            return drawableResourceId;
         }
     }
 }

@@ -1,11 +1,13 @@
 package com.devmarvin.rutasdelmetro;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +17,8 @@ import androidx.fragment.app.Fragment;
 public class FragmentComoLlegar extends Fragment {
     private LinearLayout estacionPartida;
     private LinearLayout estacionFinal;
+    private ImageView iconoEstacionPartida;
+    private ImageView iconoEstacionDestino;
     private TextView textEstacionPartida;
     private TextView textEstacionDestino;
     private TextView textLineaPartida;
@@ -80,14 +84,25 @@ public class FragmentComoLlegar extends Fragment {
         if(partida != null) {
             textEstacionPartida = view.findViewById(R.id.text_estacion_partida);
             textLineaPartida = view.findViewById(R.id.text_linea_partida);
+            iconoEstacionPartida = view.findViewById(R.id.icono_estacion_partida);
+            iconoEstacionPartida.setImageResource(getImageMipmap("ic_balbuena",getContext()));
             textEstacionPartida.setText(partida.getNombre());
             textLineaPartida.setText(partida.getLinea().getNombre());
         }
         if(destino != null) {
             textEstacionDestino = view.findViewById(R.id.text_estacion_destino);
             textLineaDestino = view.findViewById(R.id.text_linea_destino);
+            iconoEstacionDestino = view.findViewById(R.id.icono_estacion_destino);
+            iconoEstacionDestino.setImageResource(getImageMipmap("ic_balbuena",getContext()));
             textEstacionDestino.setText(destino.getNombre());
             textLineaDestino.setText(destino.getLinea().getNombre());
         }
+    }
+    public int getImageMipmap(String imageName, Context context) {
+
+        int drawableResourceId = context.getResources().
+                getIdentifier(imageName, "mipmap", context.getPackageName());
+
+        return drawableResourceId;
     }
 }

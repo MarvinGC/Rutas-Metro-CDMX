@@ -14,6 +14,10 @@ WHERE (    id = 8 - 1
         OR id = 8 + 1 
 ) AND linea_id = 1;
 
+--- Todas las estaciones mas los atributos de la linea
+SELECT * FROM estaciones JOIN lineas ON linea_id = lineas.id;
+
+
 
 --- Si la estacion tiene transbordes, regresa con que lineas inersecta la estacion
 SELECT * FROM estaciones JOIN lineas ON linea_id = lineas.id WHERE estacion = "Balderas";

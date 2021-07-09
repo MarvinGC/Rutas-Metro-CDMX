@@ -2,6 +2,7 @@ package com.devmarvin.rutasdelmetro;
 
 public class Estacion {
     private String nombre;
+    private String rutaLogo;
     private int lineaId;
     private boolean visitado;
     //private UUID id;
@@ -57,5 +58,13 @@ public class Estacion {
 
     public void setIndex(int index) {
         this.index = index;
+    }
+
+    public String getRutaLogo() {
+        return rutaLogo;
+    }
+
+    public void setRutaLogo(String rutaLogo) {
+        this.rutaLogo = rutaLogo;
     }
 }

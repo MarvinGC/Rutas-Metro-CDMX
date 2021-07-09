@@ -36,12 +36,12 @@ public class EstacionHelper extends SQLiteOpenHelper {
             // writeable database, but only if the version number has been
             // bumped
             //onUpgrade(myDataBase, DATABASE_VERSION_old, DATABASE_VERSION);
-            /*Provicional mientras no implemento onUpgrade
+            /* Provicional mientras no implemento onUpgrade
             String myPath = RUTA_BASE + NOMBRE_BASE;
             File dbfile = new File(myPath);
             dbfile.delete();
             copyFromAssets();
-             */
+            */
         }
         else
         {
