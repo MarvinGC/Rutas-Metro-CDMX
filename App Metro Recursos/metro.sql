@@ -13,7 +13,7 @@
 -- Table `metro`.`lineas`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS 'lineas' (
-  `id` INTEGER PRIMARY KEY, --- Esta columna es rowId actua como un primary key
+  `id_linea` INTEGER PRIMARY KEY, --- Esta columna es rowId actua como un primary key
   `linea` TEXT,
   `color` TEXT
 );
@@ -23,11 +23,11 @@ CREATE TABLE IF NOT EXISTS 'lineas' (
 -- Table `metro`.`estaciones`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS 'estaciones' (
-  `id` INTEGER PRIMARY KEY, --- Esta columna es rowId actua como un primary key
+  `id_estacion` INTEGER PRIMARY KEY, --- Esta columna es rowId actua como un primary key
   `linea_id` INTEGER,
   `estacion` TEXT,
   'ruta_logo' TEXT,
   'tiempo_siguiente_estacion' INT,
-  FOREIGN KEY('linea_id') REFERENCES lineas('id')
+  FOREIGN KEY('linea_id') REFERENCES lineas('id_linea')
 );
 
