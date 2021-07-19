@@ -96,17 +96,17 @@ public class ActivityRutaFinal extends AppCompatActivity {
 
         public void bind(Estacion e) {
             mEstacion = e;
-            iconoEstacion.setImageResource(getImageMipmap("ic_balbuena",getApplicationContext()));
+            iconoEstacion.setImageResource(
+                    getImageMipmap(mEstacion.getRutaLogo(),getApplicationContext()));
             nombreEstacion.setText(mEstacion.getNombre());
             nombreLinea.setText(mEstacion.getLinea().getNombre());
             colorLinea.setText(mEstacion.getLinea().getColor());
         }
         public int getImageMipmap(String imageName, Context context) {
-
             int drawableResourceId = context.getResources().
                     getIdentifier(imageName, "mipmap", context.getPackageName());
-
-            return drawableResourceId;
+            Log.d("est",drawableResourceId+" "+imageName);
+            return (drawableResourceId == 0) ? R.mipmap.ic_launcher : drawableResourceId;
         }
     }
 }

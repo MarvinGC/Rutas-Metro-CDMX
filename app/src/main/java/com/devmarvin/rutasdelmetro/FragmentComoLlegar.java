@@ -3,6 +3,7 @@ package com.devmarvin.rutasdelmetro;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,7 +86,8 @@ public class FragmentComoLlegar extends Fragment {
             textEstacionPartida = view.findViewById(R.id.text_estacion_partida);
             textLineaPartida = view.findViewById(R.id.text_linea_partida);
             iconoEstacionPartida = view.findViewById(R.id.icono_estacion_partida);
-            iconoEstacionPartida.setImageResource(getImageMipmap("ic_balbuena",getContext()));
+            iconoEstacionPartida.setImageResource(
+                    getImageMipmap(partida.getRutaLogo(), getContext()));
             textEstacionPartida.setText(partida.getNombre());
             textLineaPartida.setText(partida.getLinea().getNombre());
         }
@@ -93,16 +95,16 @@ public class FragmentComoLlegar extends Fragment {
             textEstacionDestino = view.findViewById(R.id.text_estacion_destino);
             textLineaDestino = view.findViewById(R.id.text_linea_destino);
             iconoEstacionDestino = view.findViewById(R.id.icono_estacion_destino);
-            iconoEstacionDestino.setImageResource(getImageMipmap("ic_balbuena",getContext()));
+            iconoEstacionDestino.setImageResource(
+                    getImageMipmap(destino.getRutaLogo(),getContext()));
             textEstacionDestino.setText(destino.getNombre());
             textLineaDestino.setText(destino.getLinea().getNombre());
         }
     }
     public int getImageMipmap(String imageName, Context context) {
-
         int drawableResourceId = context.getResources().
                 getIdentifier(imageName, "mipmap", context.getPackageName());
-
-        return drawableResourceId;
+        Log.d("est",drawableResourceId+" "+imageName);
+        return (drawableResourceId == 0) ? R.mipmap.ic_launcher : drawableResourceId;
     }
 }

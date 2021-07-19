@@ -3,6 +3,7 @@ package com.devmarvin.rutasdelmetro;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -116,17 +117,18 @@ public class ActivityBuscar extends AppCompatActivity {
 
         public void bind(Estacion e) {
             mEstacion = e;
-            iconoEstacion.setImageResource(getImageMipmap("ic_balbuena",getApplicationContext()));
+
+            iconoEstacion.setImageResource(
+                    getImageMipmap(mEstacion.getRutaLogo(),getApplicationContext()));
             nombreEstacion.setText(mEstacion.getNombre());
             nombreLinea.setText(mEstacion.getLinea().getNombre());
             colorLinea.setText(mEstacion.getLinea().getColor());
         }
         public int getImageMipmap(String imageName, Context context) {
-
             int drawableResourceId = context.getResources().
                     getIdentifier(imageName, "mipmap", context.getPackageName());
-
-            return drawableResourceId;
+            Log.d("est",drawableResourceId+" "+imageName);
+            return (drawableResourceId == 0) ? R.mipmap.ic_launcher : drawableResourceId;
         }
     }
 }
