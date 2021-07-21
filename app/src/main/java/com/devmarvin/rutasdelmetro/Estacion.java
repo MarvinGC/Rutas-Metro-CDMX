@@ -10,7 +10,7 @@ public class Estacion {
     private int index;
     private Linea mLinea;
     public Estacion(int index){ setIndex(index); }
-
+//Comentario de prueba en git
     public void setLinea(Linea linea) {
         mLinea = linea;
     }
