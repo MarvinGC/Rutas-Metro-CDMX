@@ -27,6 +27,13 @@ public class Busqueda {
         Queue<Integer> cola = new LinkedList<>();
         cola.add(ini);
         metro.get(ini).setVisitado(true);
+
+        List<Integer> transbordesFinal = EstacionLab.get(context)
+                                        .getTransbordesInt(metro.get(fin));
+        for(int fin : transbordesFinal)
+            if(ini == fin)
+                cola.clear();
+
         while(!cola.isEmpty()){
             int actual = cola.peek();
             cola.poll();
@@ -38,9 +45,12 @@ public class Busqueda {
                     metro.get(x).setVisitado(true);
                     metro.get(x).setAnterior(actual);
                     cola.add(x);
-                    if(x == fin){
-                        cola.clear();
-                        break;
+                    for(int fin : transbordesFinal){
+                        if(x == fin){
+                            cola.clear();
+                            this.fin = x;
+                            break;
+                        }
                     }
                 }
             }

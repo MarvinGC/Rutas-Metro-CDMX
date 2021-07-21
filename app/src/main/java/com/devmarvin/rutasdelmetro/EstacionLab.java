@@ -28,6 +28,16 @@ public class EstacionLab {
     private static List<Estacion> rutaMasCorta;
     private SQLiteDatabase metro;
 
+    public EstacionLab(Context context){
+        EstacionHelper e = new EstacionHelper(context);
+        try {
+            e.createDatabase();
+            metro = e.getReadableDatabase();
+            estacionesMetro = getEstaciones();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 
     public static EstacionLab get(Context context){
             if(estacionLabEstatica == null){
@@ -43,24 +53,30 @@ public class EstacionLab {
     public static Estacion getPrimera() {
         return primera;
     }
+
     public static Estacion getSegunda() {
         return segunda;
     }
+
     public static void setPrimera(int index) {
         EstacionLab.primera = getEstacion(index);
     }
+
     public static void setSegunda(int index) {
         EstacionLab.segunda = getEstacion(index);
     }
+
     public static List<Estacion> getEstacionesMetro() {
         return estacionesMetro;
     }
+
     public static void setEstacionesMetro(List<Estacion> estacionesMetro) {
         EstacionLab.estacionesMetro = estacionesMetro;
     }
     public static List<Estacion> getRutaMasCorta() {
         return rutaMasCorta;
     }
+
     public static void setRutaMasCorta(List<Estacion> rutaMasCorta) {
         EstacionLab.rutaMasCorta = rutaMasCorta;
     }
@@ -69,22 +85,54 @@ public class EstacionLab {
         return (index != -1) ? estacionesMetro.get(index) : null;
     }
 
-    public EstacionLab(Context context){
-        EstacionHelper e = new EstacionHelper(context);
-        try {
-            e.createDatabase();
-            metro = e.getReadableDatabase();
-            estacionesMetro = getEstaciones();
-        } catch (IOException ex) {
-            ex.printStackTrace();
+    public List<Integer> getAristas(Estacion estacion){
+        List<Integer> aristas = new LinkedList<>();
+        for(Estacion e : getTransbordes(estacion)){
+            aristas.addAll(
+                    getAnteriorSiguiente(e.getIndex(),e.getLineaId())
+            );
         }
+        /*// Debug
+        for(int x : aristas){
+            Log.d("BFS",estacionesMetro.get(x).getNombre());
+        }
+         */
+        return aristas;
+    }
+    public List<Integer> getTransbordesInt(Estacion estacion) {
+        /*
+        Si la estacion tiene transbordes, regresa con que lineas inersecta la estacion
+        SELECT * FROM estaciones JOIN lineas ON linea_id = id_linea WHERE estacion = "estacion";
+         */
+        String consulta =  " SELECT * FROM "+
+                MetroDbEsquema.TablaEstacion.Nombre +
+                " JOIN "+ MetroDbEsquema.TablaLinea.Nombre + " ON "+
+                MetroDbEsquema.TablaEstacion.Cols.lineaId +" = " +
+                MetroDbEsquema.TablaLinea.Cols.idLinea +
+                " WHERE "+ MetroDbEsquema.TablaEstacion.Cols.nombreEstacion +
+                " =\"" + estacion.getNombre() + "\";";
+        List<Integer> transbordes = new ArrayList<>();
+        Cursor cursor = metro.rawQuery(
+                consulta,null
+        );
+        try{
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                transbordes.add(cursor.getInt(cursor.getColumnIndex(
+                        MetroDbEsquema.TablaEstacion.Cols.idEstacion
+                ))/* index - 1 para ajustar con el arreglo */ - 1);
+                cursor.moveToNext();
+            }
+        }
+        finally {
+            cursor.close();
+        }
+        return transbordes;
     }
     private List<Estacion> getTransbordes(Estacion estacion) {
          /*
         Si la estacion tiene transbordes, regresa con que lineas inersecta la estacion
-
         SELECT * FROM estaciones JOIN lineas ON linea_id = id_linea WHERE estacion = "estacion";
-
          */
         String consulta =  " SELECT * FROM "+
                              MetroDbEsquema.TablaEstacion.Nombre +
@@ -145,19 +193,7 @@ public class EstacionLab {
         }
         return estaciones;
     }
-    public List<Integer> getAristas(Estacion estacion){
-        List<Integer> aristas = new LinkedList<>();
-        for(Estacion e : getTransbordes(estacion)){
-            aristas.addAll(
-                getAnteriorSiguiente(e.getIndex(),e.getLineaId())
-            );
-        }
-        // Debug
-        for(int x : aristas){
-            Log.d("BFS",estacionesMetro.get(x).getNombre());
-        }
-        return aristas;
-    }
+
     private List<Estacion> getEstaciones() {
 
         /*
