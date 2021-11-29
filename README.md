@@ -2,14 +2,9 @@
 ## Rutas del Metro CDMX Android
 <!-- <a href=''><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height="50px"/></a> -->
 
-Esta es una app que te permite buscar la ruta más corta* de una estación a otra en el Metro de la Ciudad de México.
-
+Esta aplicación te permite encontrar el camino más corto de una estación a otra sin considerar las distancias o el tiempo entre estaciones.
   
 ## Demo
-
-Actualmente todavía estoy desarrollándola, por lo que todavía no calcula la ruta más corta basándose en la distancia entre cada estación, pero cuenta con el algoritmo BTF (primero en amplitud por sus siglas en inglés), el cual consiste en buscar
-la ruta más corta asumiendo que todos los nodos (en este caso las estaciones) tienen la misma distancia entre si.<br>Aqui una demostracion de su funcionamiento:
-
 <br> Primero seleciona la estación de partida <br><br>
 <img src="recursos/Capturas/captura1.png" alt="drawing" width="200"/>
 <img src="recursos/Capturas/captura2.png" alt="drawing" width="200"/>
