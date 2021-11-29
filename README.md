@@ -1,9 +1,8 @@
 
 ## Rutas del Metro CDMX Android
+<!-- <a href=''><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height="50px"/></a> -->
 
-<a href=''><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height="50px"/></a>
-
-Esta es una app que te permite buscar la ruta más corta* de una estacion a otra en el Metro de la Ciudad de México.
+Esta es una app que te permite buscar la ruta más corta* de una estación a otra en el Metro de la Ciudad de México.
 
   
 ## Demo
