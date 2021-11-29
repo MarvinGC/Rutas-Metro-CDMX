@@ -27,7 +27,3 @@ Esta aplicación te permite encontrar el camino más corto de una estación a ot
 | Modificaion     | Garantia     |                              |
 | Distribución    |              |                              |
 | Uso privado     |              |                              |
-
-## Contribuciones
-
-Actualmente estoy trabajando solo, por lo que cualquier contribución es bienvenida. 
